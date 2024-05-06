@@ -25,19 +25,24 @@ const Header: React.FC = () => {
   return (
     <StyledHeader className='px-6 md:px-10 2xl:px-40'>
       <div className='w-full flex items-center justify-between'>
-        <div onClick={toggleNavbar} className='2xl:hidden hover:cursor-pointer'>
+        <div
+          onClick={toggleNavbar}
+          className='2xl:hidden hover:cursor-pointer z-10'
+        >
           <Hamburger />
         </div>
-        <Logo />
-        <nav className='hidden 2xl:flex 2xl:gap-8 2xl:mr-28'>
+        <div className='z-10'>
+          <Logo />
+        </div>
+        <nav className='hidden 2xl:flex 2xl:gap-8 2xl:mr-28 z-10'>
           <NavLinks />
         </nav>
-        <div className='hover:cursor-pointer'>
+        <div className='hover:cursor-pointer z-10'>
           <Cart />
         </div>
       </div>
       {isOpen && (
-        <nav className='flex flex-col flex-wrap justify-center items-center 2xl:hidden'>
+        <nav className='absolute inset-x-0 top-[73px] flex flex-col flex-wrap justify-center items-center 2xl:hidden z-10'>
           <NavLinks />
         </nav>
       )}

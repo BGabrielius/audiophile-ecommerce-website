@@ -20,8 +20,8 @@ const AudioGearSection = () => {
         </picture>
       </div>
       <div className='2xl:w-2/4 2xl:pr-[95px]'>
-        <div className='flex flex-col gap-8 sm:max-w-[573px] 2xl:max-w-[445px] mt-2 sm:mt-8 2xl:mt-0'>
-          <h2 className='text-center font-bold text-[28px] tracking-[1px] sm:text-h2 sm:leading-h2 sm:tracking-h2 2xl:text-start'>
+        <div className='flex flex-col gap-8 2sm:max-w-[573px] 2xl:max-w-[445px] mt-2 2sm:mt-8 2xl:mt-0'>
+          <h2 className='text-center font-bold text-[28px] tracking-[1px] 2sm:text-h2 2sm:leading-h2 2sm:tracking-h2 2xl:text-start'>
             BRINGING YOU THE
             <span className='text-orange-clay'> BEST</span> AUDIO GEAR
           </h2>
