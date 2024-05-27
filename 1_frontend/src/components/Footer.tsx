@@ -3,7 +3,7 @@ import { Logo, Facebook, Instagram, Twitter } from './Svgs';
 
 const Footer: React.FC = () => {
   return (
-    <footer className='relative w-full h-[654px] 2sm:h-[400px] 2xl:h-[365px] flex flex-col items-center 2sm:items-start gap-12 2sm:gap-8 px-6 2sm:px-10 2xl:px-[165px] pb-[22px] 2sm:pb-8'>
+    <footer className='relative w-full h-[654px] 2sm:h-[400px] 2xl:h-[365px] flex flex-col items-center 2sm:items-start gap-12 2sm:gap-8 px-6 2sm:px-10 2xl:px-[165px] pb-[22px] 2sm:pb-8 mt-[120px] 2sm:mt-[96px] 2xl:mt-[160px]'>
       <div className='flex flex-col gap-12 2sm:gap-8 2xl:flex-row 2xl:justify-between 2xl:w-full'>
         <div className='flex flex-col items-center 2sm:items-start gap-12 2sm:gap-14 2xl:gap-[71px]'>
           <div className='bg-orange-clay w-[101px] h-1'></div>
