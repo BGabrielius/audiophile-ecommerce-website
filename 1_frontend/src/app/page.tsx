@@ -37,7 +37,7 @@ export default function Home() {
           </picture>
         </div>
       </section>
-      <ProductsNav />
+      <ProductsNav header={false} />
       <section className='flex flex-col items-center justify-center w-full gap-6 2sm:gap-8 2xl:gap-12'>
         <div className='relative overflow-hidden bg-orange-clay w-full h-[600px] 2sm:h-[720px] 2xl:h-[560px] flex flex-col items-center justify-center 2xl:flex-row rounded-lg gap-8 2sm:gap-16 2xl:gap-[138px] py-[55px]'>
           <div className='z-0 absolute rounded-[50%] border border-white/25 size-[558px] top-[-121px] 2sm:size-[944px] 2sm:top-[-280px] 2xl:left-[-160px] 2xl:top-[-35px]'></div>
