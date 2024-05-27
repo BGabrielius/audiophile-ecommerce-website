@@ -35,7 +35,7 @@ const StyledProductContainer = styled.div`
   }
 `;
 
-export const ShopButton: React.FC<{ action: () => void }> = ({ action }) => {
+const ShopButton: React.FC<{ action: () => void }> = ({ action }) => {
   return (
     <span className='flex items-center justify-center gap-2' onClick={action}>
       <button className='text-black/50 font-bold text-sub tracking-sub hover:text-orange-clay'>
@@ -46,7 +46,7 @@ export const ShopButton: React.FC<{ action: () => void }> = ({ action }) => {
   );
 };
 
-export const ProductsLink: React.FC<{ title: string }> = ({ title }) => {
+const ProductsLink: React.FC<{ title: string }> = ({ title }) => {
   const router = useRouter();
   return (
     <>
@@ -68,9 +68,15 @@ export const ProductsLink: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
-const ProductsNav: React.FC = () => {
+const ProductsNav: React.FC<{ header: boolean }> = ({ header }) => {
   return (
-    <section className='w-full flex flex-col gap-4 2sm:gap-[10px] 2sm:flex-row mt-[-80px] 2xl:mb-[-32px]'>
+    <section
+      className={`w-full flex flex-col gap-4 2sm:gap-[10px] 2sm:flex-row ${
+        header
+          ? 'mt-0 2xl:mb-0 py-8 2sm:pt-14 2sm:pb-16'
+          : 'mt-[-80px] 2xl:mb-[-32px]'
+      } `}
+    >
       <ProductsLink title='HEADPHONES' />
       <ProductsLink title='SPEAKERS' />
       <ProductsLink title='EARPHONES' />
