@@ -68,7 +68,7 @@ const ProductsLink: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
-const ProductsNav: React.FC<{ header: boolean }> = ({ header }) => {
+const ProductsNav: React.FC<{ header?: boolean }> = ({ header }) => {
   return (
     <section
       className={`w-full flex flex-col gap-4 2sm:gap-[10px] 2sm:flex-row ${
