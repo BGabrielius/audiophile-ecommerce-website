@@ -11,7 +11,6 @@ const StyledHeader = styled.header`
   padding-top: 2em;
   padding-bottom: 0.5em;
   background-color: black;
-  border-bottom: 1px solid #979797;
   display: flex;
   flex-direction: column;
   gap: 1em;
