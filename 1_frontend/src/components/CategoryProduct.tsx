@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Button from './Button';
+import { useRouter } from 'next/navigation';
 
 export interface ICategoryProduct {
   img: string;
@@ -9,6 +10,7 @@ export interface ICategoryProduct {
   description: string;
   isNew?: boolean;
   swap?: boolean;
+  action: string;
 }
 
 const CategoryProduct: React.FC<ICategoryProduct> = ({
@@ -17,7 +19,9 @@ const CategoryProduct: React.FC<ICategoryProduct> = ({
   description,
   isNew,
   swap,
+  action,
 }) => {
+  const router = useRouter();
   return (
     <div
       className={`flex flex-col items-center justify-center gap-8 2sm:gap-[52px] 2xl:gap-[84px] ${
@@ -50,7 +54,11 @@ const CategoryProduct: React.FC<ICategoryProduct> = ({
         <p className='text-center text-body leading-body opacity-60 2xl:text-left 2sm:max-w-[560px]'>
           {description}
         </p>
-        <Button text='SEE PRODUCT' action={() => undefined} type='primary' />
+        <Button
+          text='SEE PRODUCT'
+          action={() => router.push(action)}
+          type='primary'
+        />
       </div>
     </div>
   );

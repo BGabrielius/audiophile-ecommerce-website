@@ -1,9 +1,12 @@
 'use client';
+
 import AudioGearSection from '@/components/AudioGearSection';
 import Button from '@/components/Button';
 import ProductsNav from '@/components/ProductsNav';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   return (
     <main className='flex flex-col gap-[120px] 2sm:gap-24 2xl:gap-[200px]'>
       <section className='p-0 self-start flex items-center 2xl:justify-start justify-center w-full h-[510px] sm:min-h-[610px] 2sm:min-h-[510px] lg:min-h-[610px] 2lg:min-h-[710px] 2xl:min-h-[639px]'>
@@ -18,7 +21,11 @@ export default function Home() {
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <Button text='SEE PRODUCT' action={() => undefined} type='primary' />
+          <Button
+            text='SEE PRODUCT'
+            action={() => router.push('/headphones/xx99 mark II')}
+            type='primary'
+          />
         </div>
         <div className='z-0 absolute top-0 w-full'>
           <picture>
@@ -66,7 +73,10 @@ export default function Home() {
               Upgrade to premium speakers that are phenomenally built to deliver
               truly remarkable sound.
             </p>
-            <button className='text-white bg-black hover:bg-[#4C4C4C] text-[13px] tracking-[1px] font-bold py-[15px] px-[2.43em] 2sm:mt-4'>
+            <button
+              onClick={() => router.push('/speakers/zx9')}
+              className='text-white bg-black hover:bg-[#4C4C4C] text-[13px] tracking-[1px] font-bold py-[15px] px-[2.43em] 2sm:mt-4'
+            >
               SEE PRODUCT
             </button>
           </div>
@@ -78,7 +88,7 @@ export default function Home() {
             </h4>
             <Button
               text='SEE PRODUCT'
-              action={() => undefined}
+              action={() => router.push('/speakers/zx7')}
               type='secondary'
             />
           </div>
@@ -124,7 +134,7 @@ export default function Home() {
 
               <Button
                 text='SEE PRODUCT'
-                action={() => undefined}
+                action={() => router.push('earphones/yx1')}
                 type='secondary'
               />
             </div>
