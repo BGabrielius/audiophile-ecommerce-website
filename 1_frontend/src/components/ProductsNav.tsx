@@ -72,9 +72,7 @@ const ProductsNav: React.FC<{ header?: boolean }> = ({ header }) => {
   return (
     <section
       className={`w-full flex flex-col gap-4 2sm:gap-[10px] 2sm:flex-row ${
-        header
-          ? 'mt-0 2xl:mb-0 py-8 2sm:pt-14 2sm:pb-16'
-          : 'mt-[-80px] 2xl:mb-[-32px]'
+        header && 'py-8 2sm:pt-14 2sm:pb-16'
       } `}
     >
       <ProductsLink title='HEADPHONES' />
