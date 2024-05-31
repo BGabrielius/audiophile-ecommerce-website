@@ -5,6 +5,7 @@ import { Hamburger, Logo, Cart } from './Svgs';
 import { useState } from 'react';
 import NavLinks from './NavLinks';
 import ProductsNav from './ProductsNav';
+import { useRouter } from 'next/navigation';
 
 const StyledHeader = styled.header`
   min-height: 96px;
@@ -28,6 +29,7 @@ const Overlay = styled.div`
 `;
 
 const Header: React.FC = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -40,7 +42,10 @@ const Header: React.FC = () => {
           >
             <Hamburger />
           </div>
-          <div className='z-10'>
+          <div
+            className='z-10 cursor-pointer'
+            onClick={() => router.replace('/')}
+          >
             <Logo />
           </div>
           <nav className='hidden 2xl:flex 2xl:gap-8 2xl:mr-28 z-10'>
