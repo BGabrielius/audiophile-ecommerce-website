@@ -10,7 +10,7 @@ const page = () => {
   return (
     <main className='flex flex-col gap-[120px]'>
       <Headline headline='EARPHONES' />
-      <section className='flex flex-col gap-[120px] mb-[80px]'>
+      <section className='flex flex-col gap-[120px] 2xl:gap-[160px]'>
         <CategoryProduct
           img='product-yx1-earphones'
           title='YX1 WIRELESS EARPHONES'

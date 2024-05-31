@@ -33,7 +33,7 @@ const page = () => {
   return (
     <main className='flex flex-col gap-[120px]'>
       <Headline headline='SPEAKERS' />
-      <section className='flex flex-col gap-[120px] mb-[80px]'>
+      <section className='flex flex-col gap-[120px] 2xl:gap-[160px]'>
         {categoryProducts.map((product: ICategoryProduct) => (
           <CategoryProduct
             img={product.img}

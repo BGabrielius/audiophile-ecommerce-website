@@ -1,14 +1,12 @@
 'use client';
 
+import AudioGearSection from '@/components/AudioGearSection';
 import Gallery from '@/components/Gallery';
 import Headline from '@/components/Headline';
-import React, { useEffect } from 'react';
+import ProductsNav from '@/components/ProductsNav';
+import React from 'react';
 
 const page = ({ params }: { params: { id: string } }) => {
-  useEffect(() => {
-    console.log(params.id);
-  }, []);
-
   return (
     <main className='flex justify-start'>
       {params.id === 'yx1' ? (
@@ -16,6 +14,8 @@ const page = ({ params }: { params: { id: string } }) => {
       ) : (
         <Headline headline='Page not found' />
       )}
+      <ProductsNav />
+      <AudioGearSection />
     </main>
   );
 };

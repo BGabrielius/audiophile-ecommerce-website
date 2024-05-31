@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
   return (
     <main className='flex flex-col gap-[120px] 2sm:gap-24 2xl:gap-[200px]'>
-      <section className='p-0 self-start flex items-center 2xl:justify-start justify-center w-full h-[510px] sm:min-h-[610px] 2sm:min-h-[510px] lg:min-h-[610px] 2lg:min-h-[710px] 2xl:min-h-[639px]'>
+      <section className='p-0 self-start flex items-center 2xl:justify-start justify-center w-full h-[510px] sm:min-h-[610px] 2sm:min-h-[510px] lg:min-h-[610px] 2lg:min-h-[710px] 2xl:min-h-[639px] 2xl:mb-[-100px]'>
         <div className='z-10 flex flex-col items-center justify-start gap-4 max-w-[328px] md:max-w-[379px] 2xl:items-start 2xl:pl-[165px] 2xl:max-w-[530px]'>
           <p className='text-white text-center text-overline leading-overline tracking-overline text-opacity-50'>
             NEW PRODUCT
@@ -45,7 +45,7 @@ export default function Home() {
         </div>
       </section>
       <ProductsNav />
-      <section className='flex flex-col items-center justify-center w-full gap-6 2sm:gap-8 2xl:gap-12'>
+      <section className='flex flex-col items-center justify-center w-full gap-6 2sm:gap-8 2xl:gap-12 2xl:mt-[-32px]'>
         <div className='relative overflow-hidden bg-orange-clay w-full h-[600px] 2sm:h-[720px] 2xl:h-[560px] flex flex-col items-center justify-center 2xl:flex-row rounded-lg gap-8 2sm:gap-16 2xl:gap-[138px] py-[55px]'>
           <div className='z-0 absolute rounded-[50%] border border-white/25 size-[558px] top-[-121px] 2sm:size-[944px] 2sm:top-[-280px] 2xl:left-[-160px] 2xl:top-[-35px]'></div>
           <div className='z-0 absolute rounded-[50%] border border-white/25 size-[320px] top-0 2sm:size-[542px] 2sm:top-[-82px] 2xl:left-[45px] 2xl:top-[175px]'></div>
