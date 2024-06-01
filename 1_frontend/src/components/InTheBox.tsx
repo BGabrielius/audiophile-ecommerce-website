@@ -1,7 +1,103 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import styled from 'styled-components';
 
-const InTheBox = () => {
-  return <div></div>;
+export const StyledSpanContainer = styled.span`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  gap: 21px;
+
+  @media screen and (min-width: 1440px) {
+    gap: 24px;
+  }
+`;
+
+export const StyledItemAmount = styled.p`
+  font-size: 15px;
+  font-weight: bold;
+  color: #d87d4a;
+`;
+export const StyledItemName = styled.p`
+  font-size: 15px;
+  font-weight: bold;
+  opacity: 0.5;
+`;
+
+const InTheBox: React.FC<{ type: string; children?: ReactNode }> = ({
+  type,
+  children,
+}) => {
+  return (
+    <section className='flex items-start justify-center flex-col gap-6 2sm:gap-[165px] 2xl:gap-8 2sm:flex-row 2xl:flex-col'>
+      <h3 className='text-[24px] font-bold tracking-[0.86px] leading-h3 2sm:text-h3 2sm:tracking-h3'>
+        IN THE BOX
+      </h3>
+      <div className='flex flex-col items-start justify-center'>
+        {type === 'headphones' ? (
+          <>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>Headphone Unit</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>2x</StyledItemAmount>
+              <StyledItemName>Replacement Earcups</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>User Manual</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>3.5mm 5m Audio Cable</StyledItemName>
+            </StyledSpanContainer>
+            {children && children}
+          </>
+        ) : type === 'speakers' ? (
+          <>
+            <StyledSpanContainer>
+              <StyledItemAmount>2x</StyledItemAmount>
+              <StyledItemName>Speaker Unit</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>2x</StyledItemAmount>
+              <StyledItemName>Speaker Cloth Panel</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>User Manual</StyledItemName>
+            </StyledSpanContainer>
+            {children && children}
+          </>
+        ) : (
+          <>
+            <StyledSpanContainer>
+              <StyledItemAmount>2x</StyledItemAmount>
+              <StyledItemName>Earphone Unit</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>6x</StyledItemAmount>
+              <StyledItemName>Multi-size Earplugs</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>User Manual</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>USB-C Charging Cable</StyledItemName>
+            </StyledSpanContainer>
+            <StyledSpanContainer>
+              <StyledItemAmount>1x</StyledItemAmount>
+              <StyledItemName>Travel Pouch</StyledItemName>
+            </StyledSpanContainer>
+            {children && children}
+          </>
+        )}
+      </div>
+    </section>
+  );
 };
 
 export default InTheBox;
