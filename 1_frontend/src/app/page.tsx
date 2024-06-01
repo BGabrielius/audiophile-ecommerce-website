@@ -23,7 +23,7 @@ export default function Home() {
           </p>
           <Button
             text='SEE PRODUCT'
-            action={() => router.push('/headphones/xx99 mark II')}
+            action={() => router.push('/headphones/xx99II')}
             type='primary'
           />
         </div>
