@@ -15,12 +15,13 @@ export const StyledSpanContainer = styled.span`
 
 export const StyledItemAmount = styled.p`
   font-size: 15px;
+  line-height: 25px;
   font-weight: bold;
   color: #d87d4a;
 `;
 export const StyledItemName = styled.p`
   font-size: 15px;
-  font-weight: bold;
+  line-height: 25px;
   opacity: 0.5;
 `;
 
@@ -29,7 +30,7 @@ const InTheBox: React.FC<{ type: string; children?: ReactNode }> = ({
   children,
 }) => {
   return (
-    <section className='flex items-start justify-center flex-col gap-6 2sm:gap-[165px] 2xl:gap-8 2sm:flex-row 2xl:flex-col'>
+    <div className='flex items-start justify-start flex-col gap-6 2sm:gap-[165px] 2xl:gap-8 2sm:flex-row 2xl:flex-col 2xl:w-[350px]'>
       <h3 className='text-[24px] font-bold tracking-[0.86px] leading-h3 2sm:text-h3 2sm:tracking-h3'>
         IN THE BOX
       </h3>
@@ -96,7 +97,7 @@ const InTheBox: React.FC<{ type: string; children?: ReactNode }> = ({
           </>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
