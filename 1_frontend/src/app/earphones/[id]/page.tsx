@@ -4,6 +4,7 @@ import AudioGearSection from '@/components/AudioGearSection';
 import Gallery from '@/components/Gallery';
 import Headline from '@/components/Headline';
 import InTheBox from '@/components/InTheBox';
+import Product from '@/components/Product';
 import ProductFeatures from '@/components/ProductFeatures';
 import ProductsNav from '@/components/ProductsNav';
 import React from 'react';
@@ -13,6 +14,13 @@ const page = ({ params }: { params: { id: string } }) => {
     <main className='flex justify-start gap-[120px]'>
       {params.id === 'yx1' ? (
         <>
+          <Product
+            img='yx1-earphones'
+            title='YX1 WIRELESS EARPHONES'
+            description='Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.'
+            price={599}
+            isNew
+          />
           <section className='flex flex-col gap-[120px] 2xl:flex-row 2xl:justify-between'>
             <ProductFeatures
               p1='Experience unrivalled stereo sound thanks to innovative acoustic technology. With improved ergonomics designed for full day wearing, these revolutionary earphones have been finely crafted to provide you with the perfect fit, delivering complete comfort all day long while enjoying exceptional noise isolation and truly immersive sound.'
