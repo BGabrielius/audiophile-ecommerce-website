@@ -5,10 +5,12 @@ import styled from 'styled-components';
 const StyledButton = styled.button`
   height: 100%;
   padding: 0 15px;
+  opacity: 0.25;
 
   &:hover {
     cursor: pointer;
     background-color: #fafafabe;
+    opacity: 1;
   }
 `;
 
