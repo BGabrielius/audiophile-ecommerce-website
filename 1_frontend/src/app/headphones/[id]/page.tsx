@@ -11,6 +11,7 @@ import InTheBox, {
 import Product from '@/components/Product';
 import ProductFeatures from '@/components/ProductFeatures';
 import ProductsNav from '@/components/ProductsNav';
+import YouMayAlsoLikeSection from '@/components/YouMayAlsoLikeSection';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -52,6 +53,7 @@ const page = ({ params }: { params: { id: string } }) => {
             />
           </section>
           <Gallery product='xx99-mark-two-headphones' />
+          <YouMayAlsoLikeSection currProduct='XX99 MARK II' />
         </>
       ) : params.id === 'xx99I' ? (
         <>
@@ -69,6 +71,7 @@ const page = ({ params }: { params: { id: string } }) => {
             <InTheBox type='headphones' />
           </section>
           <Gallery product='xx99-mark-one-headphones' />
+          <YouMayAlsoLikeSection currProduct='XX99 MARK I' />
         </>
       ) : params.id === 'xx59' ? (
         <>
@@ -86,6 +89,7 @@ const page = ({ params }: { params: { id: string } }) => {
             <InTheBox type='headphones' />
           </section>
           <Gallery product='xx59-headphones' />
+          <YouMayAlsoLikeSection currProduct='XX59' />
         </>
       ) : (
         <Headline headline='Page not found' />

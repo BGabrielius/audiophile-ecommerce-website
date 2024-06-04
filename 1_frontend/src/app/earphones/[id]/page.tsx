@@ -7,6 +7,7 @@ import InTheBox from '@/components/InTheBox';
 import Product from '@/components/Product';
 import ProductFeatures from '@/components/ProductFeatures';
 import ProductsNav from '@/components/ProductsNav';
+import YouMayAlsoLikeSection from '@/components/YouMayAlsoLikeSection';
 import React from 'react';
 
 const page = ({ params }: { params: { id: string } }) => {
@@ -29,6 +30,7 @@ const page = ({ params }: { params: { id: string } }) => {
             <InTheBox type='earphones' />
           </section>
           <Gallery product='yx1-earphones' />
+          <YouMayAlsoLikeSection currProduct='YX1' />
         </>
       ) : (
         <Headline headline='Page not found' />

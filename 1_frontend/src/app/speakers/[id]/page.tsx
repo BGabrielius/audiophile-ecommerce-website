@@ -11,6 +11,7 @@ import InTheBox, {
 import Product from '@/components/Product';
 import ProductFeatures from '@/components/ProductFeatures';
 import ProductsNav from '@/components/ProductsNav';
+import YouMayAlsoLikeSection from '@/components/YouMayAlsoLikeSection';
 import React from 'react';
 
 const page = ({ params }: { params: { id: string } }) => {
@@ -47,6 +48,7 @@ const page = ({ params }: { params: { id: string } }) => {
             />
           </section>
           <Gallery product='zx9-speaker' />
+          <YouMayAlsoLikeSection currProduct='ZX9' />
         </>
       ) : params.id === 'zx7' ? (
         <>
@@ -78,6 +80,7 @@ const page = ({ params }: { params: { id: string } }) => {
             />
           </section>
           <Gallery product='zx7-speaker' />
+          <YouMayAlsoLikeSection currProduct='ZX7' />
         </>
       ) : (
         <Headline headline='Page not found' />
