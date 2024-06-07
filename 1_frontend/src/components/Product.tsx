@@ -5,6 +5,7 @@ import Counter from './Counter';
 interface Props {
   img: string;
   title: string;
+  type: string;
   description: string;
   price: number;
   isNew?: boolean;
@@ -13,6 +14,7 @@ interface Props {
 const Product: React.FC<Props> = ({
   img,
   title,
+  type,
   description,
   price,
   isNew,
@@ -40,7 +42,7 @@ const Product: React.FC<Props> = ({
           </p>
         )}
         <h2 className='max-w-[195px] lg:max-w-[272px] font-bold text-[28px] tracking-[1px] md:leading-[32px] lg:text-h2 lg:tracking-h2 lg:leading-h2'>
-          {title}
+          {title} {type}
         </h2>
         <p className='max-w-[390px] lg:max-w-[445px] text-body leading-body opacity-50'>
           {description}
