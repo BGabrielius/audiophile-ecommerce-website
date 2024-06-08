@@ -40,11 +40,14 @@ export default function Home() {
             <img
               src='/assets/home/mobile/image-header.jpg'
               className='h-[600px] sm:h-[700px] 2sm:h-[600px] lg:h-[700px] 2lg:h-[800px] 2xl:h-[729px] w-full'
+              alt='background headphones product'
             />
           </picture>
         </div>
       </section>
-      <ProductsNav />
+      <section className='w-full'>
+        <ProductsNav />
+      </section>
       <section className='flex flex-col items-center justify-center w-full gap-6 2sm:gap-8 2xl:gap-12 2xl:mt-[-32px]'>
         <div className='relative overflow-hidden bg-orange-clay w-full h-[600px] 2sm:h-[720px] 2xl:h-[560px] flex flex-col items-center justify-center 2xl:flex-row rounded-lg gap-8 2sm:gap-16 2xl:gap-[138px] py-[55px]'>
           <div className='z-0 absolute rounded-[50%] border border-white/25 size-[558px] top-[-121px] 2sm:size-[944px] 2sm:top-[-280px] 2xl:left-[-160px] 2xl:top-[-35px]'></div>
@@ -62,6 +65,7 @@ export default function Home() {
             <img
               src='/assets/home/mobile/image-speaker-zx9.png'
               className=' w-[170px] h-[207px] 2sm:w-[197px] 2sm:h-[237px] 2xl:w-[369px] 2xl:h-[443px] 2xl:mt-36'
+              alt='ZX9 speaker product'
             />
           </picture>
 
@@ -83,9 +87,9 @@ export default function Home() {
         </div>
         <div className='w-full relative'>
           <div className='z-10 h-[320px] relative flex flex-col justify-center items-start px-6 2sm:px-[62px] 2xl:px-[95px] gap-8'>
-            <h4 className='text-h4 tracking-h4 leading-h4 font-bold'>
+            <h3 className='text-h4 tracking-h4 leading-h4 font-bold'>
               ZX7 SPEAKER
-            </h4>
+            </h3>
             <Button
               text='SEE PRODUCT'
               action={() => router.push('/speakers/zx7')}
@@ -105,6 +109,7 @@ export default function Home() {
               <img
                 src='/assets/home/mobile/image-speaker-zx7.jpg'
                 className='rounded-lg w-full h-[320px]'
+                alt='ZX7 speaker product'
               />
             </picture>
           </div>
@@ -123,14 +128,15 @@ export default function Home() {
               <img
                 src='/assets/home/mobile/image-earphones-yx1.jpg'
                 className='rounded-lg w-full h-[200px] 2sm:h-[339px]'
+                alt='YX1 wireless earphones product'
               />
             </picture>
           </div>
           <div className='h-[200px] 2sm:h-[339px] w-full'>
             <div className='bg-light-gray rounded-lg w-full min-h-full flex flex-col justify-center items-start px-9 py-6 2sm:px-4 2xl:px-24 md:px-10 gap-8'>
-              <h4 className='text-h4 tracking-h4 leading-h4 font-bold'>
+              <h3 className='text-h4 tracking-h4 leading-h4 font-bold'>
                 YX1 EARPHONES
-              </h4>
+              </h3>
 
               <Button
                 text='SEE PRODUCT'

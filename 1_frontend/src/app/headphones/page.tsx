@@ -55,7 +55,9 @@ const page = () => {
           />
         ))}
       </section>
-      <ProductsNav />
+      <section className='w-full'>
+        <ProductsNav />
+      </section>
       <AudioGearSection />
     </main>
   );

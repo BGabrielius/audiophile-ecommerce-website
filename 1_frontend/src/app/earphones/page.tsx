@@ -19,7 +19,9 @@ const page = () => {
           action='/earphones/yx1'
         />
       </section>
-      <ProductsNav />
+      <section className='w-full'>
+        <ProductsNav />
+      </section>
       <AudioGearSection />
     </main>
   );
