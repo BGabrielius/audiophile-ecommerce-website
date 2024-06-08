@@ -15,7 +15,7 @@ const config: Config = {
         '2xl': '1440px',
       },
       colors: {
-        'orange-clay': '#D87D4A',
+        'orange-clay': '#BF5822',
         'orange-peach': '#FBAF85',
         'jet-black': '#101010',
         'light-gray': '#F1F1F1',
