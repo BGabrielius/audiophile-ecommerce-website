@@ -5,6 +5,7 @@ import {
 } from './components/InTheBox';
 
 export interface ProductInfo {
+  categoryType: string;
   type: string;
   img: string;
   title: string;
@@ -19,6 +20,7 @@ export interface ProductInfo {
 
 export const products: ProductInfo[] = [
   {
+    categoryType: 'headphones',
     type: 'HEADPHONES',
     img: 'xx99-mark-two-headphones',
     title: 'XX99 MARK II',
@@ -39,6 +41,7 @@ export const products: ProductInfo[] = [
     route: 'xx99II',
   },
   {
+    categoryType: 'headphones',
     type: 'HEADPHONES',
     img: 'xx99-mark-one-headphones',
     title: 'XX99 MARK I',
@@ -54,6 +57,7 @@ export const products: ProductInfo[] = [
     route: 'xx99I',
   },
   {
+    categoryType: 'headphones',
     type: 'HEADPHONES',
     img: 'xx59-headphones',
     title: 'XX59',
@@ -69,6 +73,7 @@ export const products: ProductInfo[] = [
     route: 'xx59',
   },
   {
+    categoryType: 'speakers',
     type: 'SPEAKER',
     img: 'zx9-speaker',
     title: 'ZX9',
@@ -95,6 +100,7 @@ export const products: ProductInfo[] = [
     route: 'zx9',
   },
   {
+    categoryType: 'speakers',
     type: 'SPEAKER',
     img: 'zx7-speaker',
     title: 'ZX7',
@@ -121,6 +127,7 @@ export const products: ProductInfo[] = [
     route: 'zx7',
   },
   {
+    categoryType: 'earphones',
     type: 'WIRELESS EARPHONES',
     img: 'yx1-earphones',
     title: 'YX1',
