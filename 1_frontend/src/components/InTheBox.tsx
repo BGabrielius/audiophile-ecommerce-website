@@ -17,12 +17,12 @@ export const StyledItemAmount = styled.p`
   font-size: 15px;
   line-height: 25px;
   font-weight: bold;
-  color: #d87d4a;
+  color: #bf5822;
 `;
 export const StyledItemName = styled.p`
   font-size: 15px;
   line-height: 25px;
-  opacity: 0.5;
+  opacity: 0.6;
 `;
 
 const InTheBox: React.FC<{ type: string; children?: ReactNode }> = ({

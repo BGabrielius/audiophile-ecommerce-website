@@ -10,21 +10,26 @@ const StyledImage = styled.img`
   height: 100%;
 `;
 
-const Gallery: React.FC<{ product: string }> = ({ product }) => {
+const Gallery: React.FC<{ img: string; title: string; type: string }> = ({
+  img,
+  title,
+  type,
+}) => {
   return (
     <section className='h-[756px] 2xl:w-full 2sm:h-[368px] 2xl:h-[592px] grid grid-cols-1 2sm:grid-cols-2 grid-rows-4 2sm:grid-rows-2 gap-5 2xl:gap-8'>
       <div>
         <picture>
           <source
             media='(min-width: 1440px)'
-            srcSet={`/assets/product-${product}/desktop/image-gallery-1.jpg`}
+            srcSet={`/assets/product-${img}/desktop/image-gallery-1.jpg`}
           />
           <source
             media='(min-width: 640px)'
-            srcSet={`/assets/product-${product}/tablet/image-gallery-1.jpg`}
+            srcSet={`/assets/product-${img}/tablet/image-gallery-1.jpg`}
           />
           <StyledImage
-            src={`/assets/product-${product}/mobile/image-gallery-1.jpg`}
+            src={`/assets/product-${img}/mobile/image-gallery-1.jpg`}
+            alt={`${title} ${type} product`}
           />
         </picture>
       </div>
@@ -32,14 +37,15 @@ const Gallery: React.FC<{ product: string }> = ({ product }) => {
         <picture>
           <source
             media='(min-width: 1440px)'
-            srcSet={`/assets/product-${product}/desktop/image-gallery-3.jpg`}
+            srcSet={`/assets/product-${img}/desktop/image-gallery-3.jpg`}
           />
           <source
             media='(min-width: 640px)'
-            srcSet={`/assets/product-${product}/tablet/image-gallery-3.jpg`}
+            srcSet={`/assets/product-${img}/tablet/image-gallery-3.jpg`}
           />
           <StyledImage
-            src={`/assets/product-${product}/mobile/image-gallery-3.jpg`}
+            src={`/assets/product-${img}/mobile/image-gallery-3.jpg`}
+            alt={`${title} ${type} product`}
           />
         </picture>
       </div>
@@ -47,14 +53,15 @@ const Gallery: React.FC<{ product: string }> = ({ product }) => {
         <picture>
           <source
             media='(min-width: 1440px)'
-            srcSet={`/assets/product-${product}/desktop/image-gallery-2.jpg`}
+            srcSet={`/assets/product-${img}/desktop/image-gallery-2.jpg`}
           />
           <source
             media='(min-width: 640px)'
-            srcSet={`/assets/product-${product}/tablet/image-gallery-2.jpg`}
+            srcSet={`/assets/product-${img}/tablet/image-gallery-2.jpg`}
           />
           <StyledImage
-            src={`/assets/product-${product}/mobile/image-gallery-2.jpg`}
+            src={`/assets/product-${img}/mobile/image-gallery-2.jpg`}
+            alt={`${title} ${type} product`}
           />
         </picture>
       </div>

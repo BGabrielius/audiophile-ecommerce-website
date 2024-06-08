@@ -38,7 +38,7 @@ const ProductContentWrapper: React.FC<{ params: string }> = ({ params }) => {
         <>
           <section className='w-full flex items-start mb-[-96px] 2xl:mb-[-64px] mt-4 md:mt-8 2xl:mt-20'>
             <button
-              className='text-body leading-body opacity-50 self-start hover:text-orange-clay'
+              className='text-body leading-body opacity-60 self-start hover:text-orange-clay'
               onClick={() => router.back()}
             >
               Go Back
@@ -62,7 +62,11 @@ const ProductContentWrapper: React.FC<{ params: string }> = ({ params }) => {
               children={productInfo.inTheBoxChildren}
             />
           </section>
-          <Gallery product={productInfo.img} />
+          <Gallery
+            img={productInfo.img}
+            title={productInfo.title}
+            type={productInfo.type}
+          />
           <YouMayAlsoLikeSection currProduct={productInfo.title} />
 
           <ProductsNav />

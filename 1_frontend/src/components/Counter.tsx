@@ -18,7 +18,8 @@ const Counter = () => {
   const [count, setCount] = useState<number>(1);
 
   const adjustAmount = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.currentTarget.firstChild?.nodeValue === '-') setCount(count - 1);
+    if (e.currentTarget.firstChild?.nodeValue === '-')
+      setCount((prevCount) => Math.max(1, prevCount - 1));
     if (e.currentTarget.firstChild?.nodeValue === '+') setCount(count + 1);
   };
   return (
@@ -26,11 +27,18 @@ const Counter = () => {
       <StyledButton
         className={count > 1 ? 'pointer-events-auto' : 'pointer-events-none'}
         onClick={adjustAmount}
+        aria-label='Decrease amount'
+        aria-disabled={count <= 1}
+        tabIndex={count > 1 ? 0 : -1}
       >
         -
       </StyledButton>
-      <p>{count}</p>
-      <StyledButton onClick={adjustAmount}>+</StyledButton>
+      <p role='status' aria-live='polite'>
+        {count}
+      </p>
+      <StyledButton onClick={adjustAmount} aria-label='Increase amount'>
+        +
+      </StyledButton>
     </div>
   );
 };

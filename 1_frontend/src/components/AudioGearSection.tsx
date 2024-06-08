@@ -16,6 +16,7 @@ const AudioGearSection = () => {
           <img
             src='/assets/shared/mobile/image-best-gear.jpg'
             className='h-[300px] 2xl:h-[588px] 2xl:w-full rounded-lg'
+            alt='A man listening to something with our headphones'
           />
         </picture>
       </div>
@@ -25,7 +26,7 @@ const AudioGearSection = () => {
             BRINGING YOU THE
             <span className='text-orange-clay'> BEST</span> AUDIO GEAR
           </h2>
-          <p className='text-black text-opacity-50 text-center text-body leading-body 2xl:text-start'>
+          <p className='text-black text-opacity-60 text-center text-body leading-body 2xl:text-start'>
             Located at the heart of New York City, Audiophile is the premier
             store for high end headphones, earphones, speakers, and audio
             accessories. We have a large showroom and luxury demonstration rooms

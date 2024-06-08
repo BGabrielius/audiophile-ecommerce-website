@@ -33,6 +33,7 @@ const Product: React.FC<Props> = ({
         <img
           src={`/assets/product-${img}/mobile/image-product.jpg`}
           className='rounded-[8px] max-h-[560px] md:max-h-[480px] w-full md:h-full'
+          alt={`${title} ${type} product`}
         />
       </picture>
       <div className='flex flex-col items-start gap-6 md:justify-center md:w-[54%] lg:w-[50%]'>
@@ -44,7 +45,7 @@ const Product: React.FC<Props> = ({
         <h2 className='max-w-[195px] lg:max-w-[272px] font-bold text-[28px] tracking-[1px] md:leading-[32px] lg:text-h2 lg:tracking-h2 lg:leading-h2'>
           {title} {type}
         </h2>
-        <p className='max-w-[390px] lg:max-w-[445px] text-body leading-body opacity-50'>
+        <p className='max-w-[390px] lg:max-w-[445px] text-body leading-body opacity-60'>
           {description}
         </p>
         <p className='text-[18px] font-bold tracking-[1.3px]'>

@@ -9,8 +9,10 @@ const Footer: React.FC = () => {
           <div className='bg-orange-clay w-[101px] h-1'></div>
           <Logo />
         </div>
-        <nav className='flex flex-col items-center justify-center 2sm:flex-row gap-4 2xl:self-end'>
-          <NavLinks />
+        <nav className='2xl:self-end'>
+          <ul className='flex flex-col items-center justify-center 2sm:flex-row gap-4'>
+            <NavLinks />
+          </ul>
         </nav>
       </div>
       <p className='text-center 2sm:text-start text-white text-opacity-50 font-body leading-body 2sm:mb-12 2xl:mb-6 2xl:max-w-[540px]'>
@@ -23,11 +25,19 @@ const Footer: React.FC = () => {
         <p className='text-white text-opacity-50 font-body leading-body'>
           Copyright 2021. All Rights Reserved
         </p>
-        <span className='flex gap-4 hover:cursor-pointer 2xl:absolute 2xl:right-[165px] 2xl:bottom-[136px]'>
-          <Facebook />
-          <Twitter />
-          <Instagram />
-        </span>
+        <nav>
+          <ul className='flex gap-4 hover:cursor-pointer 2xl:absolute 2xl:right-[165px] 2xl:bottom-[136px]'>
+            <li tabIndex={0} aria-label='Go to our Facebook page'>
+              <Facebook />
+            </li>
+            <li tabIndex={0} aria-label='Go to our Twitter page'>
+              <Twitter />
+            </li>
+            <li tabIndex={0} aria-label='Go to our Instagram page'>
+              <Instagram />
+            </li>
+          </ul>
+        </nav>
       </div>
     </footer>
   );

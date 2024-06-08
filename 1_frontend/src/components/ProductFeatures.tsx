@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledParagraph = styled.p`
   font-size: 15px;
   line-height: 25px;
-  opacity: 0.5;
+  opacity: 0.6;
 `;
 
 const ProductFeatures: React.FC<{ p1: string; p2: string }> = ({ p1, p2 }) => {

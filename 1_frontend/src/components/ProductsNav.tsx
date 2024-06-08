@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ArrowRight } from './Svgs';
 
-const StyledProductWrapper = styled.div`
+const StyledProductWrapper = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,14 +35,19 @@ const StyledProductContainer = styled.div`
   }
 `;
 
-const ShopButton: React.FC<{ action: () => void }> = ({ action }) => {
+const ShopButton: React.FC<{ action: () => void; title: string }> = ({
+  action,
+  title,
+}) => {
   return (
-    <span className='flex items-center justify-center gap-2' onClick={action}>
-      <button className='text-black/50 font-bold text-sub tracking-sub hover:text-orange-clay'>
-        SHOP
-      </button>
+    <button
+      className='flex items-center justify-center gap-2 text-black/60 font-bold text-sub tracking-sub hover:text-orange-clay'
+      onClick={action}
+      aria-label={`Navigate to ${title} page`}
+    >
+      <p>SHOP</p>
       <ArrowRight />
-    </span>
+    </button>
   );
 };
 
@@ -54,14 +59,17 @@ const ProductsLink: React.FC<{ title: string }> = ({ title }) => {
         <StyledProductContainer>
           <img
             src={`/assets/shared/desktop/image-category-thumbnail-${title.toLowerCase()}.png`}
-            alt={title}
+            alt={`${title} product`}
             className='h-[130px] 2xl:h-[170px]'
           />
-          <h6 className='text-black text-body tracking-[1px] font-bold leading-sub 2xl:text-h6 2xl:leading-h6 2xl:tracking-h6'>
+          <p className='text-black text-body tracking-[1px] font-bold leading-sub 2xl:text-h6 2xl:leading-h6 2xl:tracking-h6'>
             {title}
-          </h6>
+          </p>
 
-          <ShopButton action={() => router.push(`/${title.toLowerCase()}`)} />
+          <ShopButton
+            action={() => router.push(`/${title.toLowerCase()}`)}
+            title={title}
+          />
         </StyledProductContainer>
       </StyledProductWrapper>
     </>
@@ -70,7 +78,7 @@ const ProductsLink: React.FC<{ title: string }> = ({ title }) => {
 
 const ProductsNav: React.FC<{ header?: boolean }> = ({ header }) => {
   return (
-    <section
+    <ul
       className={`w-full flex flex-col gap-4 2sm:gap-[10px] 2sm:flex-row ${
         header && 'py-8 2sm:pt-14 2sm:pb-16'
       } `}
@@ -78,7 +86,7 @@ const ProductsNav: React.FC<{ header?: boolean }> = ({ header }) => {
       <ProductsLink title='HEADPHONES' />
       <ProductsLink title='SPEAKERS' />
       <ProductsLink title='EARPHONES' />
-    </section>
+    </ul>
   );
 };
 
