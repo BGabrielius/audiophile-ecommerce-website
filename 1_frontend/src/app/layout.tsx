@@ -9,7 +9,8 @@ const manrope = Manrope({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Audiophile Ecommerce',
-  description: '',
+  description:
+    'Audiophile - the best place to buy your portable audio equipment.',
 };
 
 export default function RootLayout({
