@@ -31,14 +31,14 @@ const CategoryProduct: React.FC<ICategoryProduct> = ({
       <picture className='2xl:w-1/2'>
         <source
           media='(min-width: 1440px)'
-          srcSet={`/assets/${img}/desktop/image-category-page-preview.jpg`}
+          srcSet={`/assets/product-${img}/desktop/image-category-page-preview.jpg`}
         />
         <source
           media='(min-width: 640px)'
-          srcSet={`/assets/${img}/tablet/image-category-page-preview.jpg`}
+          srcSet={`/assets/product-${img}/tablet/image-category-page-preview.jpg`}
         />
         <img
-          src={`/assets/${img}/mobile/image-category-page-preview.jpg`}
+          src={`/assets/product-${img}/mobile/image-category-page-preview.jpg`}
           className='rounded-[8px] max-h-[560px] 2xl:w-full 2xl:h-full'
           alt={`${title}`}
         />
