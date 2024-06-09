@@ -16,6 +16,7 @@ export interface ProductInfo {
   ProductFeaturesP2: string;
   inTheBoxChildren?: React.ReactNode;
   route: string;
+  swap?: boolean;
 }
 
 export const products: ProductInfo[] = [
@@ -39,6 +40,7 @@ export const products: ProductInfo[] = [
       </StyledSpanContainer>
     ),
     route: 'xx99II',
+    swap: false,
   },
   {
     categoryType: 'headphones',
@@ -55,6 +57,7 @@ export const products: ProductInfo[] = [
       'From the handcrafted microfiber ear cushions to the robust metal headband with inner damping element, the components work together to deliver comfort and uncompromising sound. Its closed-back design delivers up to 27 dB of passive noise cancellation, reducing resonance by reflecting sound to a dedicated absorber. For connectivity, a specially tuned cable is included with a balanced gold connector.',
     inTheBoxChildren: <></>,
     route: 'xx99I',
+    swap: true,
   },
   {
     categoryType: 'headphones',
@@ -71,6 +74,7 @@ export const products: ProductInfo[] = [
       'More than a simple pair of headphones, this headset features a pair of built-in microphones for clear, hands-free calling when paired with a compatible smartphone. Controlling music and calls is also intuitive thanks to easy-access touch buttons on the earcups. Regardless of how you use the XX59 headphones, you can do so all day thanks to an impressive 30-hour battery life that can be rapidly recharged via USB-C.',
     inTheBoxChildren: <></>,
     route: 'xx59',
+    swap: false,
   },
   {
     categoryType: 'speakers',
@@ -98,6 +102,7 @@ export const products: ProductInfo[] = [
       </>
     ),
     route: 'zx9',
+    swap: false,
   },
   {
     categoryType: 'speakers',
@@ -125,6 +130,7 @@ export const products: ProductInfo[] = [
       </>
     ),
     route: 'zx7',
+    swap: true,
   },
   {
     categoryType: 'earphones',
