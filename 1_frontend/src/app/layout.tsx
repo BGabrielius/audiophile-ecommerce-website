@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StyledComponentsRegistry from '@/lib/registry';
+import { ReduxProvider } from '@/providers/ReduxProvider';
 
 const manrope = Manrope({ subsets: ['latin'] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <StyledComponentsRegistry>
-        <body className={`${manrope.className}`}>
-          <Header />
-          {children}
-          <Footer />
-        </body>
+        <ReduxProvider>
+          <body className={`${manrope.className}`}>
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </ReduxProvider>
       </StyledComponentsRegistry>
     </html>
   );
