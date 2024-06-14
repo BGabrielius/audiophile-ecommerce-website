@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
@@ -12,26 +16,27 @@ export class ProductsService {
     ) {
       throw new NotFoundException('Category does not exist');
     }
-    return this.databaseService.product.findMany({
+    const products = this.databaseService.product.findMany({
       where: {
         category,
       },
     });
+    if (!products) {
+      throw new NotFoundException('Whoops! No products were found');
+    }
+    return products;
   }
   async findOne(category: string, id: string) {
-    const product = await this.databaseService.product.findFirst({
+    const about = await this.databaseService.product.findFirst({
       where: {
         route: id,
       },
     });
-    if (!product) {
+    if (!about) {
       throw new NotFoundException('Product does not exist');
-    } else if (product.category !== category) {
-      throw new NotFoundException('Category does not exist');
+    } else if (about.category !== category) {
+      throw new BadRequestException('Bad request');
     }
-    return product;
-  }
-  async findOneItems(id: string) {
     const items = await this.databaseService.itemsIncluded.findMany({
       where: {
         productRoute: id,
@@ -40,6 +45,10 @@ export class ProductsService {
     if (items.length === 0) {
       throw new NotFoundException('There are no items with the specified id');
     }
-    return items;
+    const product = {
+      about: about,
+      items: items,
+    };
+    return product;
   }
 }
