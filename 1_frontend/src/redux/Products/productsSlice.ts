@@ -1,12 +1,12 @@
 import api from '@/shared/api';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-type ProductItems = {
+export interface ProductItems {
   id: number;
   quantity: number;
   item: string;
   productRoute: string;
-};
+}
 
 export interface ProductInfo {
   slug: string;
@@ -21,7 +21,7 @@ export interface ProductInfo {
 }
 export interface Product {
   about: ProductInfo;
-  items: ProductItems;
+  items: ProductItems[];
 }
 
 export interface getOneProductParams {
