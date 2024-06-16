@@ -24,11 +24,10 @@ const ProductCategoryContentWrapper: React.FC<{ category: string }> = ({
     if (!products || products[0].category !== category) {
       dispatch(getCategorizedProducts(category));
     }
-    if (products) console.log(products);
   }, [products]);
 
   return (
-    <main className='flex flex-col gap-[120px]'>
+    <main className='flex flex-col justify-start gap-[120px]'>
       <Headline
         headline={message ? message.toUpperCase() : category.toUpperCase()}
       />
@@ -49,10 +48,14 @@ const ProductCategoryContentWrapper: React.FC<{ category: string }> = ({
               )
           )}
       </section>
-      <section className='w-full'>
-        <ProductsNav />
-      </section>
-      <AudioGearSection />
+      {products && (
+        <>
+          <section className='w-full'>
+            <ProductsNav />
+          </section>
+          <AudioGearSection />
+        </>
+      )}
     </main>
   );
 };

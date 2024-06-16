@@ -22,7 +22,8 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
   params,
   category,
 }) => {
-  const [pageNotFound, setPageNotFound] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [features, setFeatures] = useState<string[] | undefined>(undefined);
 
   const router = useRouter();
 
@@ -41,26 +42,20 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
     if (!product || product.about.route !== params) {
       dispatch(getOneProduct(getOneParams));
     }
-    if (product) console.log(product);
+    if (product && !isMounted && product.about.route === params) {
+      separateFeaturesParagraph();
+      setIsMounted(true);
+    }
   }, [product]);
 
-  // const selectedProduct = () => {
-  //   let productFound: boolean = false;
-  //   for (let i = 0; i < products.length; i++) {
-  //     if (
-  //       products[i].route === params &&
-  //       products[i].categoryType === category
-  //     ) {
-  //       productFound = true;
-  //     }
-  //   }
-  //   if (!productFound) setPageNotFound(true);
-  // };
+  const separateFeaturesParagraph = () => {
+    const split = product?.about.features.split('*');
+    setFeatures(split);
+  };
   return (
-    <>
-      (
-      {product ? (
-        <main className='flex justify-start gap-[120px]' key={params}>
+    <main className='flex justify-start gap-[120px]' key={params}>
+      {product && product.about.route === params ? (
+        <>
           <section className='w-full flex items-start mb-[-96px] 2xl:mb-[-64px] mt-4 md:mt-8 2xl:mt-20'>
             <button
               className='text-body leading-body opacity-60 self-start hover:text-orange-clay'
@@ -78,13 +73,10 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
           />
           <section className='flex flex-col gap-[120px] 2xl:flex-row 2xl:justify-between'>
             <ProductFeatures
-              p1={product.about.features}
-              p2={product.about.features}
+              p1={features ? features[0] : ''}
+              p2={features ? features[1] : ''}
             />
-            <InTheBox
-              type={product.about.category}
-              children={product.items.item}
-            />
+            <InTheBox items={product.items} />
           </section>
           <Gallery
             img={product.about.slug}
@@ -95,17 +87,13 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
 
           <ProductsNav />
           <AudioGearSection />
-        </main>
+        </>
+      ) : message ? (
+        <Headline headline={message} />
       ) : (
-        message
+        <Headline headline='' />
       )}
-      )
-      {pageNotFound && (
-        <main className='flex justify-start'>
-          <Headline headline='PAGE NOT FOUND' />{' '}
-        </main>
-      )}
-    </>
+    </main>
   );
 };
 
