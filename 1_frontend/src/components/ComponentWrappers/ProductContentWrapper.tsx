@@ -1,6 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store';
+
 import InTheBox from '../InTheBox';
 import AudioGearSection from '../AudioGearSection';
 import ProductsNav from '../ProductsNav';
@@ -9,9 +13,6 @@ import YouMayAlsoLikeSection from '../YouMayAlsoLikeSection';
 import Gallery from '../Gallery';
 import ProductFeatures from '../ProductFeatures';
 import Product from '../Product';
-import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/redux/store';
 import {
   Product as IProduct,
   getOneProduct,
@@ -45,7 +46,7 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
     if (!product || product.about.route !== params) {
       const savedProduct = getProductHook();
       if (savedProduct && !isMounted) {
-        applyProductData(savedProduct, false);
+        applyProductData(savedProduct, true);
       } else if (!savedProduct && !isMounted) {
         const getOneParams: getOneProductParams = {
           category: category,
