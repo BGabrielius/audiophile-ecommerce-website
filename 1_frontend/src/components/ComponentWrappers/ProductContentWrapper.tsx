@@ -17,6 +17,7 @@ import {
   getOneProduct,
   getOneProductParams,
 } from '@/redux/Products/productsSlice';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
   params,
@@ -24,10 +25,16 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
 }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [features, setFeatures] = useState<string[] | undefined>(undefined);
+  const [product, setProduct] = useState<IProduct>();
 
   const router = useRouter();
 
-  const product: IProduct | null = useSelector(
+  const { setProductHook, getProductHook } = useLocalStorage(
+    'products',
+    params
+  );
+
+  const selectorProduct: IProduct | null = useSelector(
     (state: RootState) => state.products.product
   );
   const message = useSelector((state: RootState) => state.products.message);
@@ -35,23 +42,34 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const getOneParams: getOneProductParams = {
-      category: category,
-      productId: params,
-    };
     if (!product || product.about.route !== params) {
-      dispatch(getOneProduct(getOneParams));
+      const savedProduct = getProductHook();
+      if (savedProduct && !isMounted) {
+        applyProductData(savedProduct, false);
+      } else if (!savedProduct && !isMounted) {
+        const getOneParams: getOneProductParams = {
+          category: category,
+          productId: params,
+        };
+        dispatch(getOneProduct(getOneParams));
+      }
     }
-    if (product && !isMounted && product.about.route === params) {
-      separateFeaturesParagraph();
-      setIsMounted(true);
+    if (
+      selectorProduct &&
+      !isMounted &&
+      selectorProduct.about.route === params
+    ) {
+      applyProductData(selectorProduct, false);
     }
-  }, [product]);
+  }, [product, selectorProduct]);
 
-  const separateFeaturesParagraph = () => {
-    const split = product?.about.features.split('*');
-    setFeatures(split);
+  const applyProductData = (data: IProduct, saved: boolean) => {
+    if (!saved) setProductHook(data);
+    setProduct(data);
+    setFeatures(data.about.features.split('*'));
+    setIsMounted(true);
   };
+
   return (
     <main className='flex justify-start gap-[120px]' key={params}>
       {product && product.about.route === params ? (
