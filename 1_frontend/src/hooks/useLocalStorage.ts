@@ -1,8 +1,16 @@
-import { Product } from '@/redux/Products/productsSlice';
+import { Product, ProductInfo } from '@/redux/Products/productsSlice';
+import { useEffect, useState } from 'react';
 
 export const useLocalStorage = (key: string, id: string) => {
-  const hasProducts: string | null = window.localStorage.getItem(key);
+  const [hasProducts, setHasProducts] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHasProducts(window.localStorage.getItem(key));
+    }
+  }, [key, id]);
   const setProductHook = (value: Product) => {
+    // if (!isBrowser) return;
     try {
       if (hasProducts) {
         const products: Product[] = JSON.parse(hasProducts);
@@ -10,7 +18,6 @@ export const useLocalStorage = (key: string, id: string) => {
           (product) => product.about.route === id
         );
         if (alreadyExists.length !== 0) return;
-        console.log(alreadyExists);
         products.push(value);
         localStorage.removeItem(key);
         localStorage.setItem(key, JSON.stringify(products));
@@ -22,7 +29,35 @@ export const useLocalStorage = (key: string, id: string) => {
       console.log(error);
     }
   };
+  const setProductsHook = (value: ProductInfo[]) => {
+    // if (!isBrowser) return;
+    try {
+      if (hasProducts) {
+        const products: ProductInfo[] = JSON.parse(hasProducts);
+        const alreadyExists = products.filter(
+          (product) => product.category === id
+        );
+        if (alreadyExists.length !== 0) return;
+        console.log('setter if', alreadyExists);
+        value.forEach((product) => {
+          products.push(product);
+        });
+        localStorage.removeItem(key);
+        localStorage.setItem(key, JSON.stringify(products));
+      } else {
+        console.log('setter else');
+        const products: ProductInfo[] = [];
+        value.forEach((product) => {
+          products.push(product);
+        });
+        localStorage.setItem(key, JSON.stringify(products));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getProductHook = () => {
+    // if (!isBrowser) return;
     try {
       if (hasProducts) {
         console.log('from hook', JSON.parse(hasProducts));
@@ -37,6 +72,21 @@ export const useLocalStorage = (key: string, id: string) => {
       console.log(error);
     }
   };
+  const getProductsHook = () => {
+    // if (!isBrowser) return;
+    try {
+      if (hasProducts) {
+        const products = JSON.parse(hasProducts).filter(
+          (item: ProductInfo) => item.category === id
+        );
 
-  return { setProductHook, getProductHook };
+        if (products) return products;
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { setProductHook, setProductsHook, getProductHook, getProductsHook };
 };

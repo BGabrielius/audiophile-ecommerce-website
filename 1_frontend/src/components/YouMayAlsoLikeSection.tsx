@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Button from './Button';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import { products, ProductInfo } from '@/tempData';
 
@@ -53,7 +53,7 @@ const YouMayAlsoLikeSection: React.FC<{ currProduct: string }> = ({
                 text='SEE PRODUCT'
                 type='primary'
                 action={() =>
-                  router.replace(`/${product.categoryType}/${product.route}`)
+                  router.push(`/${product.categoryType}/${product.route}`)
                 }
               />
             </div>

@@ -30,10 +30,7 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
 
   const router = useRouter();
 
-  const { setProductHook, getProductHook } = useLocalStorage(
-    'products',
-    params
-  );
+  const { setProductHook, getProductHook } = useLocalStorage('product', params);
 
   const selectorProduct: IProduct | null = useSelector(
     (state: RootState) => state.products.product

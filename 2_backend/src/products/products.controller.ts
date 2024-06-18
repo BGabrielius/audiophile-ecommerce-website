@@ -10,6 +10,7 @@ export class ProductsController {
   findAllByCategory(
     @Param('category') category: 'headphones' | 'speakers' | 'earphones',
   ) {
+    console.log('yeetus deletus');
     return this.productsService.findAllByCategory(category);
   }
 
@@ -18,6 +19,7 @@ export class ProductsController {
     @Param('category') category: 'headphones' | 'speakers' | 'earphones',
     @Param('id') id: string,
   ) {
+    console.log('yeetus deletus');
     return this.productsService.findOne(category, id);
   }
 }
