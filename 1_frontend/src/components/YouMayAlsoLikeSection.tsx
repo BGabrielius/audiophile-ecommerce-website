@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Button from './Button';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import { products, ProductInfo } from '@/tempData';
 

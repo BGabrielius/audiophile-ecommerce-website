@@ -2,13 +2,7 @@ import { Product, ProductInfo } from '@/redux/Products/productsSlice';
 import { useEffect, useState } from 'react';
 
 export const useLocalStorage = (key: string, id: string) => {
-  const [hasProducts, setHasProducts] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setHasProducts(window.localStorage.getItem(key));
-    }
-  }, [key, id]);
+  const hasProducts = window.localStorage.getItem(key);
   const setProductHook = (value: Product) => {
     // if (!isBrowser) return;
     try {
@@ -38,14 +32,13 @@ export const useLocalStorage = (key: string, id: string) => {
           (product) => product.category === id
         );
         if (alreadyExists.length !== 0) return;
-        console.log('setter if', alreadyExists);
+
         value.forEach((product) => {
           products.push(product);
         });
         localStorage.removeItem(key);
         localStorage.setItem(key, JSON.stringify(products));
       } else {
-        console.log('setter else');
         const products: ProductInfo[] = [];
         value.forEach((product) => {
           products.push(product);
@@ -60,7 +53,6 @@ export const useLocalStorage = (key: string, id: string) => {
     // if (!isBrowser) return;
     try {
       if (hasProducts) {
-        console.log('from hook', JSON.parse(hasProducts));
         const product = JSON.parse(hasProducts).filter(
           (item: Product) => item.about.route === id
         );

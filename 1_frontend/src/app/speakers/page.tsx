@@ -1,7 +1,13 @@
 'use client';
 
-import ProductCategoryContentWrapper from '@/components/ComponentWrappers/ProductCategoryContentWrapper';
 import React from 'react';
+import dynamic from 'next/dynamic';
+export const ProductCategoryContentWrapper = dynamic(
+  () => import('@/components/ComponentWrappers/ProductCategoryContentWrapper'),
+  {
+    ssr: false,
+  }
+);
 
 const page = () => {
   return <ProductCategoryContentWrapper category='speakers' />;

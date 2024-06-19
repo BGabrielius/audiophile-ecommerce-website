@@ -54,25 +54,31 @@ const ProductCategoryContentWrapper: React.FC<{ category: string }> = ({
   // setProductsHook,
   // ]);
   useEffect(() => {
-    // if (products) {
-    //   console.log('products,', products);
-    //   console.log('isMounted,', isMounted);
-    // }
-    if (!products) {
-      const savedProduct = getProductsHook();
-      if (savedProduct.length > 0 && !isMounted) {
-        console.log(savedProduct);
-        setIsMounted(true);
-        setProducts(savedProduct);
-      } else if (!savedProduct && !isMounted) {
-        dispatch(getCategorizedProducts(category));
+    const retrieveProducts = async () => {
+      const savedProduct = await getProductsHook();
+      if (!products) {
+        if (savedProduct.length > 0 && !isMounted) {
+          setIsMounted(true);
+          setProducts(savedProduct);
+        } else if (
+          (!savedProduct && !isMounted) ||
+          (savedProduct.length === 0 && !isMounted)
+        ) {
+          dispatch(getCategorizedProducts(category));
+        }
       }
-    }
-    if (selectorProducts && !isMounted) {
-      setProducts(selectorProducts);
-      setIsMounted(true);
-      setProductsHook(selectorProducts);
-    }
+      if (
+        selectorProducts &&
+        selectorProducts[0].category === category &&
+        !products &&
+        !isMounted
+      ) {
+        setProducts(selectorProducts);
+        setIsMounted(true);
+        setProductsHook(selectorProducts);
+      }
+    };
+    if (!isMounted) retrieveProducts();
   }, [
     category,
     dispatch,
