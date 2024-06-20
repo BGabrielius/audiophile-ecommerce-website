@@ -9,6 +9,7 @@ export interface ProductItems {
 }
 
 export interface ProductInfo {
+  title: null | undefined;
   slug: string;
   name: string;
   category: string;
@@ -30,15 +31,15 @@ export interface getOneProductParams {
 }
 
 interface ProductsState {
-  products: ProductInfo[] | null;
-  product: Product | null;
+  all: ProductInfo[] | null;
+  one: Product | null;
   message: string;
 }
 
-export const getCategorizedProducts = createAsyncThunk<ProductInfo[], string>(
-  'products/getCategorizedProducts',
-  async (category: string) => {
-    const products = await api.getCategorizedProducts(category);
+export const getAllProducts = createAsyncThunk<ProductInfo[]>(
+  'products/getAllProducts',
+  async () => {
+    const products = await api.getAllProducts();
     return products;
   }
 );
@@ -51,8 +52,8 @@ export const getOneProduct = createAsyncThunk<Product, getOneProductParams>(
 );
 
 const initialState: ProductsState = {
-  products: null,
-  product: null,
+  all: null,
+  one: null,
   message: '',
 } satisfies ProductsState as ProductsState;
 const productSlice = createSlice({
@@ -62,23 +63,22 @@ const productSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(
-        getCategorizedProducts.fulfilled,
+        getAllProducts.fulfilled,
         (state, action: PayloadAction<ProductInfo[]>) => {
-          state.products = action.payload;
+          state.all = action.payload;
           state.message = '';
         }
       )
-      .addCase(getCategorizedProducts.pending, (state) => {
+      .addCase(getAllProducts.pending, (state) => {
         state.message = 'Loading...';
       })
-      .addCase(getCategorizedProducts.rejected, (state, action) => {
+      .addCase(getAllProducts.rejected, (state, action) => {
         state.message = action.error.message || 'Failed to load products';
-        console.log(state);
       })
       .addCase(
         getOneProduct.fulfilled,
         (state, action: PayloadAction<Product>) => {
-          state.product = action.payload;
+          state.one = action.payload;
           state.message = '';
         }
       )

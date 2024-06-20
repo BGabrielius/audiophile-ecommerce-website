@@ -8,24 +8,15 @@ import { DatabaseService } from 'src/database/database.service';
 @Injectable()
 export class ProductsService {
   constructor(private readonly databaseService: DatabaseService) {}
-  async findAllByCategory(category: 'headphones' | 'speakers' | 'earphones') {
-    if (
-      category !== 'headphones' &&
-      category !== 'speakers' &&
-      category !== 'earphones'
-    ) {
-      throw new NotFoundException('Category does not exist');
-    }
-    const products = this.databaseService.product.findMany({
-      where: {
-        category,
-      },
-    });
+  async findAll() {
+    const products = await this.databaseService.product.findMany();
     if (!products) {
       throw new NotFoundException('Whoops! No products were found');
     }
+    console.log('from controller');
     return products;
   }
+
   async findOne(category: string, id: string) {
     const about = await this.databaseService.product.findFirst({
       where: {

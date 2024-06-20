@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { ProductsService } from './products.service';
 
@@ -6,12 +6,10 @@ import { ProductsService } from './products.service';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Get(':category')
-  findAllByCategory(
-    @Param('category') category: 'headphones' | 'speakers' | 'earphones',
-  ) {
-    console.log('yeetus deletus');
-    return this.productsService.findAllByCategory(category);
+  @Get('all')
+  findAll() {
+    console.log('back');
+    return this.productsService.findAll();
   }
 
   @Get(':category/:id')
@@ -19,7 +17,6 @@ export class ProductsController {
     @Param('category') category: 'headphones' | 'speakers' | 'earphones',
     @Param('id') id: string,
   ) {
-    console.log('yeetus deletus');
     return this.productsService.findOne(category, id);
   }
 }

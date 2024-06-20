@@ -4,8 +4,8 @@ import axios from 'axios';
 const HOST = 'http://localhost:3001/products';
 
 class API {
-  async getCategorizedProducts(category: string): Promise<ProductInfo[]> {
-    const response = await axios.get(`${HOST}/${category}`);
+  async getAllProducts(): Promise<ProductInfo[]> {
+    const response = await axios.get(`${HOST}/all`);
     return response.data;
   }
 
