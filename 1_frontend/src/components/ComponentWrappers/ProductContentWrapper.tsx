@@ -15,6 +15,8 @@ import ProductFeatures from '../ProductFeatures';
 import Product from '../Product';
 import {
   Product as IProduct,
+  ProductInfo,
+  getAllProducts,
   getOneProduct,
   getOneProductParams,
 } from '@/redux/Products/productsSlice';
@@ -25,47 +27,90 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
   category,
 }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [productFetched, setProductFetched] = useState<boolean>(false);
+  const [uniqueProductsFetched, setUniqueProductsFetched] =
+    useState<boolean>(false);
   const [features, setFeatures] = useState<string[] | undefined>(undefined);
   const [product, setProduct] = useState<IProduct>();
+  const [uniqueProducts, setUniqueProducts] = useState<ProductInfo[]>();
 
   const router = useRouter();
 
   const { setProductHook, getProductHook } = useLocalStorage('product', params);
+  const { getProductsHook, setProductsHook } = useLocalStorage(
+    'products',
+    params
+  );
 
-  const selectorProduct: IProduct | null = useSelector(
-    (state: RootState) => state.products.product
+  const selectorProductsAll: ProductInfo[] | null = useSelector(
+    (state: RootState) => state.products.all
+  );
+  const selectorProductOne: IProduct | null = useSelector(
+    (state: RootState) => state.products.one
   );
   const message = useSelector((state: RootState) => state.products.message);
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (!product || product.about.route !== params) {
-      const savedProduct = getProductHook();
-      if (savedProduct && !isMounted) {
-        applyProductData(savedProduct, true);
-      } else if (!savedProduct && !isMounted) {
-        const getOneParams: getOneProductParams = {
-          category: category,
-          productId: params,
-        };
-        dispatch(getOneProduct(getOneParams));
-      }
-    }
-    if (
-      selectorProduct &&
-      !isMounted &&
-      selectorProduct.about.route === params
-    ) {
-      applyProductData(selectorProduct, false);
-    }
-  }, [product, selectorProduct]);
+    const savedProduct = getProductHook();
+    const savedUnique = getProductsHook();
 
-  const applyProductData = (data: IProduct, saved: boolean) => {
-    if (!saved) setProductHook(data);
+    if (savedProduct && !productFetched) {
+      applyProductData(savedProduct, true);
+      setProductFetched(true);
+    }
+
+    if (savedUnique && !uniqueProductsFetched) {
+      console.log(savedUnique, 'savedUnique');
+      applyUniqueProductsData(savedUnique, true);
+      setUniqueProductsFetched(true);
+    }
+
+    if (!savedProduct && !productFetched) {
+      const getOneParams: getOneProductParams = { category, productId: params };
+      dispatch(getOneProduct(getOneParams));
+      setProductFetched(true);
+    }
+
+    if (!savedUnique && !uniqueProductsFetched) {
+      dispatch(getAllProducts());
+      setUniqueProductsFetched(true);
+    }
+    if (selectorProductOne && !isMounted) {
+      applyProductData(selectorProductOne, false);
+    }
+    if (selectorProductsAll && !isMounted) {
+      applyUniqueProductsData(selectorProductsAll, false);
+    }
+    if (product && uniqueProducts) setIsMounted(true);
+  }, [
+    product,
+    uniqueProducts,
+    productFetched,
+    uniqueProductsFetched,
+    selectorProductOne,
+    selectorProductsAll,
+    getAllProducts,
+  ]);
+  const applyUniqueProductsData = (data: ProductInfo[], isSaved: boolean) => {
+    if (!isSaved) setProductsHook(data);
+    const threeUnique: ProductInfo[] = data
+      .filter((product: ProductInfo) => product.route !== params)
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+      .splice(0, 3);
+    console.log(data, 'datas');
+    console.log(threeUnique);
+
+    setUniqueProducts(threeUnique);
+  };
+  const applyProductData = (data: IProduct, isSaved: boolean) => {
+    if (!isSaved) setProductHook(data);
+
     setProduct(data);
     setFeatures(data.about.features.split('*'));
-    setIsMounted(true);
   };
 
   return (
@@ -99,7 +144,9 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
             title={product.about.name}
             type={product.about.category}
           />
-          <YouMayAlsoLikeSection currProduct={product.about.name} />
+          {uniqueProducts && (
+            <YouMayAlsoLikeSection uniqueProducts={uniqueProducts} />
+          )}
 
           <ProductsNav />
           <AudioGearSection />

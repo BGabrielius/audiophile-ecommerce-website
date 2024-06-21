@@ -1,10 +1,8 @@
 import { Product, ProductInfo } from '@/redux/Products/productsSlice';
-import { useEffect, useState } from 'react';
 
 export const useLocalStorage = (key: string, id: string) => {
   const hasProducts = window.localStorage.getItem(key);
   const setProductHook = (value: Product) => {
-    // if (!isBrowser) return;
     try {
       if (hasProducts) {
         const products: Product[] = JSON.parse(hasProducts);
@@ -24,21 +22,9 @@ export const useLocalStorage = (key: string, id: string) => {
     }
   };
   const setProductsHook = (value: ProductInfo[]) => {
-    // if (!isBrowser) return;
     try {
-      if (hasProducts) {
-        const products: ProductInfo[] = JSON.parse(hasProducts);
-        const alreadyExists = products.filter(
-          (product) => product.category === id
-        );
-        if (alreadyExists.length !== 0) return;
-
-        value.forEach((product) => {
-          products.push(product);
-        });
-        localStorage.removeItem(key);
-        localStorage.setItem(key, JSON.stringify(products));
-      } else {
+      if (hasProducts) return;
+      else {
         const products: ProductInfo[] = [];
         value.forEach((product) => {
           products.push(product);
@@ -50,7 +36,6 @@ export const useLocalStorage = (key: string, id: string) => {
     }
   };
   const getProductHook = () => {
-    // if (!isBrowser) return;
     try {
       if (hasProducts) {
         const product = JSON.parse(hasProducts).filter(
@@ -64,15 +49,18 @@ export const useLocalStorage = (key: string, id: string) => {
       console.log(error);
     }
   };
-  const getProductsHook = () => {
-    // if (!isBrowser) return;
+  const getProductsHook = (category?: string) => {
     try {
       if (hasProducts) {
-        const products = JSON.parse(hasProducts).filter(
-          (item: ProductInfo) => item.category === id
-        );
+        const products: ProductInfo[] = JSON.parse(hasProducts);
 
-        if (products) return products;
+        if (products && category) {
+          return products.filter(
+            (product: ProductInfo) => product.category === category
+          );
+        } else if (products && !category) {
+          return products;
+        }
       }
       return false;
     } catch (error) {

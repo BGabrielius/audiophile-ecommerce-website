@@ -7,10 +7,7 @@ import CategoryProduct from '../CategoryProduct';
 import Headline from '../Headline';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
-import {
-  ProductInfo,
-  getCategorizedProducts,
-} from '@/redux/Products/productsSlice';
+import { ProductInfo, getAllProducts } from '@/redux/Products/productsSlice';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const ProductCategoryContentWrapper: React.FC<{ category: string }> = ({
@@ -18,10 +15,9 @@ const ProductCategoryContentWrapper: React.FC<{ category: string }> = ({
 }) => {
   const [products, setProducts] = useState<ProductInfo[]>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
 
   const selectorProducts = useSelector(
-    (state: RootState) => state.products.products
+    (state: RootState) => state.products.all
   );
   const message = useSelector((state: RootState) => state.products.message);
   const { setProductsHook, getProductsHook } = useLocalStorage(
@@ -31,66 +27,31 @@ const ProductCategoryContentWrapper: React.FC<{ category: string }> = ({
 
   const dispatch = useDispatch<AppDispatch>();
 
-  // useEffect(() => {
-  //   if (!isMounted) {
-  //     const savedProducts = getProductsHook();
-  //     if (savedProducts && savedProducts.length > 0) {
-  //       setProducts(savedProducts);
-  //     } else {
-  //       dispatch(getCategorizedProducts(category));
-  //     }
-  //     setIsMounted(true);
-  //   } else if (selectorProducts && !products) {
-  //     setProducts(selectorProducts);
-  //     setProductsHook(selectorProducts);
-  //   }
-  // }, [
-  // dispatch,
-  // category,
-  // isMounted,
-  // selectorProducts,
-  // products,
-  // getProductsHook,
-  // setProductsHook,
-  // ]);
   useEffect(() => {
-    const retrieveProducts = async () => {
-      const savedProduct = await getProductsHook();
-      if (!products) {
-        if (savedProduct.length > 0 && !isMounted) {
-          setIsMounted(true);
-          setProducts(savedProduct);
-        } else if (
-          (!savedProduct && !isMounted) ||
-          (savedProduct.length === 0 && !isMounted)
-        ) {
-          dispatch(getCategorizedProducts(category));
-        }
-      }
-      if (
-        selectorProducts &&
-        selectorProducts[0].category === category &&
-        !products &&
-        !isMounted
+    const savedProducts = getProductsHook(category);
+    if (!products) {
+      if (savedProducts && !isMounted) {
+        filterProducts(savedProducts, true);
+      } else if (
+        (!savedProducts && !isMounted) ||
+        (!savedProducts && !isMounted)
       ) {
-        setProducts(selectorProducts);
-        setIsMounted(true);
-        setProductsHook(selectorProducts);
+        dispatch(getAllProducts());
       }
-    };
-    if (!isMounted) retrieveProducts();
-  }, [
-    category,
-    dispatch,
-    isMounted,
-    selectorProducts,
-    products,
-    getProductsHook,
-    setProductsHook,
-  ]);
+    }
+    if (selectorProducts && !products && !isMounted) {
+      filterProducts(selectorProducts, false);
+    }
+  }, [isMounted, selectorProducts, products]);
+  const filterProducts = (products: ProductInfo[], isSaved: boolean) => {
+    setIsMounted(true);
+    if (!isSaved) setProductsHook(products);
+
+    setProducts(products);
+  };
 
   return (
-    <main className='flex flex-col justify-start gap-[120px]'>
+    <main className='flex flex-col justify-start gap-[120px] min-h-screen h-full'>
       <Headline
         headline={message ? message.toUpperCase() : category.toUpperCase()}
       />
