@@ -62,7 +62,6 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
     }
 
     if (savedUnique && !uniqueProductsFetched) {
-      console.log(savedUnique, 'savedUnique');
       applyUniqueProductsData(savedUnique, true);
       setUniqueProductsFetched(true);
     }
@@ -95,15 +94,20 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
   ]);
   const applyUniqueProductsData = (data: ProductInfo[], isSaved: boolean) => {
     if (!isSaved) setProductsHook(data);
-    const threeUnique: ProductInfo[] = data
+    let threeUnique: ProductInfo[] = data
       .filter((product: ProductInfo) => product.route !== params)
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value)
       .splice(0, 3);
-    console.log(data, 'datas');
-    console.log(threeUnique);
 
+    for (let i = 0; i < threeUnique.length; i++) {
+      threeUnique[i].name = threeUnique[i].name
+        .replace('Wireless Earphones', '')
+        .replace('Speaker', '')
+        .replace('Headphones', '')
+        .trim();
+    }
     setUniqueProducts(threeUnique);
   };
   const applyProductData = (data: IProduct, isSaved: boolean) => {
