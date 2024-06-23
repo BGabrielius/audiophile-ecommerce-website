@@ -1,6 +1,11 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Button from './Button';
 import Counter from './Counter';
+import { CartItem, addToCart } from '@/redux/Cart/cartSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
 
 interface Props {
   img: string;
@@ -17,6 +22,25 @@ const Product: React.FC<Props> = ({
   price,
   isNew,
 }) => {
+  const [count, setCount] = useState<number>(1);
+  const dispatch: AppDispatch = useDispatch();
+
+  const adjustAmount = (type: '-' | '+') => {
+    if (type === '-') setCount((prevCount) => Math.max(1, prevCount - 1));
+    if (type === '+') setCount(count + 1);
+  };
+  const addToCartDispatch = () => {
+    const item: CartItem = {
+      qty: count,
+      name: title,
+      slug: img,
+      originalPrice: price,
+      priceCombined: price * count,
+    };
+    console.log(item);
+    dispatch(addToCart(item));
+  };
+
   return (
     <section className='flex flex-col gap-8 md:gap-16 lg:gap-[125px] md:flex-row'>
       <picture className='md:w-[46%] lg:w-[50%]'>
@@ -50,8 +74,12 @@ const Product: React.FC<Props> = ({
           $ {new Intl.NumberFormat().format(price)}
         </p>
         <span className='mt-2 flex gap-4'>
-          <Counter />
-          <Button text='ADD TO CART' action={() => undefined} type='primary' />
+          <Counter count={count} adjustAmount={adjustAmount} />
+          <Button
+            text='ADD TO CART'
+            action={() => addToCartDispatch()}
+            type='primary'
+          />
         </span>
       </div>
     </section>
