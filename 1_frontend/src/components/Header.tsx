@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import { Hamburger, Logo, Cart } from './Svgs';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import NavLinks from './NavLinks';
 import ProductsNav from './ProductsNav';
 import { useRouter } from 'next/navigation';
@@ -46,6 +46,34 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  const modalRef = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    if (isModalOpen) {
+      modalRef.current?.showModal();
+      document.addEventListener('click', handleClickOutside);
+    } else if (!isModalOpen) {
+      document.removeEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isModalOpen]);
+
+  const toggleModal = () => {
+    if (!isModalOpen) {
+      setIsModalOpen(true);
+    } else if (isModalOpen) {
+      modalRef.current?.close();
+      setIsModalOpen(false);
+    }
+  };
+  const handleClickOutside = (e: any) => {
+    e.stopPropagation();
+
+    if (e.target === modalRef.current) toggleModal();
+    else if (e.target !== modalRef.current) return;
+  };
+
   return (
     <>
       <StyledHeader className='px-6 md:px-10 2xl:px-40'>
@@ -67,11 +95,7 @@ const Header: React.FC = () => {
           <ul className='hidden 2xl:flex 2xl:gap-8 2xl:mr-28 z-10'>
             <NavLinks />
           </ul>
-          <button
-            className='z-10'
-            aria-label='Show cart'
-            onClick={() => setIsModalOpen(!isModalOpen)}
-          >
+          <button className='z-10' aria-label='Show cart' onClick={toggleModal}>
             <Cart />
           </button>
         </nav>
@@ -82,7 +106,7 @@ const Header: React.FC = () => {
         )}
       </StyledHeader>
       {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
-      {isModalOpen && <Modal modalView={isModalOpen} />}
+      {isModalOpen && <Modal ref={modalRef} />}
     </>
   );
 };
