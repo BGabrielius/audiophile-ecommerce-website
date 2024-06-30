@@ -106,6 +106,7 @@ const Header: React.FC = () => {
         )}
       </StyledHeader>
       {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
+
       {isModalOpen && <Modal ref={modalRef} />}
     </>
   );

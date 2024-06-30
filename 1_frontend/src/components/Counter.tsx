@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 interface Props {
   count: number;
-  adjustAmount: (type: '-' | '+') => void;
+  adjustAmount: (e: any, type: '-' | '+') => void;
+  cart: boolean;
 }
 
 const StyledButton = styled.button`
@@ -19,15 +20,17 @@ const StyledButton = styled.button`
   }
 `;
 
-const Counter: React.FC<Props> = ({ count, adjustAmount }) => {
+const Counter: React.FC<Props> = ({ count, adjustAmount, cart }) => {
   return (
     <div className='flex items-center justify-between w-[120px] h-[48px] bg-light-gray'>
       <StyledButton
-        className={count > 1 ? 'pointer-events-auto' : 'pointer-events-none'}
-        onClick={() => adjustAmount('-')}
+        className={
+          count === 1 && !cart ? 'pointer-events-none' : 'pointer-events-auto'
+        }
+        onClick={(e) => adjustAmount(e, '-')}
         aria-label='Decrease amount'
-        aria-disabled={count <= 1}
-        tabIndex={count > 1 ? 0 : -1}
+        aria-disabled={count <= 1 && !cart}
+        tabIndex={count <= 1 && cart ? 0 : -1}
       >
         -
       </StyledButton>
@@ -35,7 +38,7 @@ const Counter: React.FC<Props> = ({ count, adjustAmount }) => {
         {count}
       </p>
       <StyledButton
-        onClick={() => adjustAmount('+')}
+        onClick={(e) => adjustAmount(e, '+')}
         aria-label='Increase amount'
       >
         +

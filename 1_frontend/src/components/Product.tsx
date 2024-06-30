@@ -25,14 +25,19 @@ const Product: React.FC<Props> = ({
   const [count, setCount] = useState<number>(1);
   const dispatch: AppDispatch = useDispatch();
 
-  const adjustAmount = (type: '-' | '+') => {
+  const adjustAmount = (_: any, type: '-' | '+') => {
     if (type === '-') setCount((prevCount) => Math.max(1, prevCount - 1));
     if (type === '+') setCount(count + 1);
   };
   const addToCartDispatch = () => {
+    const shortenedName = title
+      .replace('Wireless Earphones', '')
+      .replace('Speaker', '')
+      .replace('Headphones', '')
+      .trim();
     const item: CartItem = {
       qty: count,
-      name: title,
+      name: shortenedName,
       slug: img,
       originalPrice: price,
       priceCombined: price * count,
@@ -74,7 +79,7 @@ const Product: React.FC<Props> = ({
           $ {new Intl.NumberFormat().format(price)}
         </p>
         <span className='mt-2 flex gap-4'>
-          <Counter count={count} adjustAmount={adjustAmount} />
+          <Counter count={count} adjustAmount={adjustAmount} cart={false} />
           <Button
             text='ADD TO CART'
             action={() => addToCartDispatch()}

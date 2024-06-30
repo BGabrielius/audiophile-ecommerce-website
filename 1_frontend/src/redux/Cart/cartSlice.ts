@@ -11,11 +11,13 @@ export interface CartItem {
 interface InitialCart {
   CartItems: CartItem[] | null;
   totalValue: number;
+  message: string;
 }
 
 const initialState: InitialCart = {
   CartItems: [],
   totalValue: 0,
+  message: '',
 } satisfies InitialCart as InitialCart;
 
 const cartSlice = createSlice({
@@ -38,36 +40,66 @@ const cartSlice = createSlice({
           state.CartItems.push(action.payload);
         }
       }
-
-      console.log(action.payload);
-      console.log(state.CartItems, 'state');
+      let total = 0;
+      state.CartItems.forEach(
+        (item: CartItem) => (total += item.priceCombined)
+      );
+      state.totalValue = total;
     },
-    // increaseQuantity: (state, action: PayloadAction<number>) => {
-    //   const exists = state.CartItems.find(
-    //     (item: CartItem) => item.name === action.payload.name
-    //   );
-    //   if (exists) {
-    //     exists.qty += 1;
-    //     exists.priceCombined = exists.originalPrice * exists.qty;
-    //   } else if () {
-
-    //   } else {
-    //     state.CartItems.push(action.payload);
-    //   }
-    // },
-    // decreaseQuantity: (state, action: PayloadAction<number>) => {
-    //   const exists = state.CartItems.find(
-    //     (item: CartItem) => item.name === action.payload.name
-    //   );
-    //   if (exists) {
-    //     exists.qty += 1;
-    //     exists.priceCombined = exists.originalPrice * exists.qty;
-    //   } else {
-    //     state.CartItems.push(action.payload);
-    //   }
-    // },
+    removeAllFromCart: (state) => {
+      if (state.CartItems) {
+        state.CartItems = [];
+        state.totalValue = 0;
+        state.message = 'All items were removed from the cart.';
+      } else if (!state.CartItems) {
+        state.message = 'Nothing to remove.';
+      }
+    },
+    increaseQuantity: (state, action: PayloadAction<string>) => {
+      if (state.CartItems) {
+        const item = state.CartItems.find(
+          (item: CartItem) => item.name === action.payload
+        );
+        if (item) {
+          item.qty += 1;
+          item.priceCombined += item.originalPrice;
+          state.totalValue += item.originalPrice;
+        } else {
+          state.message = 'Unknown error accured...';
+        }
+      } else {
+        state.message = 'Unknown error accured...';
+      }
+    },
+    decreaseQuantity: (state, action: PayloadAction<string>) => {
+      if (state.CartItems) {
+        const item = state.CartItems.find(
+          (item: CartItem) => item.name === action.payload
+        );
+        if (item && item.qty > 1) {
+          item.qty -= 1;
+          item.priceCombined -= item.originalPrice;
+          state.totalValue -= item.originalPrice;
+        } else if (item && item.qty === 1) {
+          state.totalValue -= item.originalPrice;
+          const filteredItems = state.CartItems.filter(
+            (cartItem: CartItem) => cartItem.name !== item.name
+          );
+          state.CartItems = filteredItems;
+        } else {
+          state.message = 'Unknown error accured...';
+        }
+      } else {
+        state.message = 'Unknown error accured...';
+      }
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeAllFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;

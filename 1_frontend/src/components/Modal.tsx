@@ -1,40 +1,69 @@
 'use client';
 
-import { CartItem } from '@/redux/Cart/cartSlice';
-import { RootState } from '@/redux/store';
+import {
+  CartItem,
+  decreaseQuantity,
+  increaseQuantity,
+  removeAllFromCart,
+} from '@/redux/Cart/cartSlice';
+import { AppDispatch, RootState } from '@/redux/store';
 import React, { forwardRef, ForwardRefRenderFunction } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Counter from './Counter';
+import Button from './Button';
 
 const Modal: ForwardRefRenderFunction<HTMLDialogElement> = (props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.CartItems);
+  const totalValue = useSelector((state: RootState) => state.cart.totalValue);
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const adjustAmount = (e: any, type: '-' | '+') => {
+    if (type === '-') {
+      dispatch(
+        decreaseQuantity(
+          e.target.parentNode.parentNode.getAttribute('data-item')
+        )
+      );
+    }
+    if (type === '+') {
+      dispatch(
+        increaseQuantity(
+          e.target.parentNode.parentNode.getAttribute('data-item')
+        )
+      );
+    }
+  };
   return (
     <dialog
       ref={ref}
-      className='fixed w-[327px] md:w-[377px] bg-white top-28 left-[70%] rounded-lg'
+      className='fixed w-[327px] md:w-[377px] bg-white top-[109px] left-[10%] rounded-lg'
     >
-      <div className='w-full h-full px-7 py-8'>
-        {cart ? (
+      <div className='flex flex-col gap-8 w-full h-full px-7 py-8'>
+        {cart && cart.length !== 0 ? (
           <>
             <div className='flex justify-between'>
               <p className='font-bold text-[18px]'>CART ({cart.length})</p>
-              <button className='text-body leading-body opacity-50 underline border-none'>
+              <button
+                className='text-body leading-body opacity-50 underline border-none'
+                onClick={() => dispatch(removeAllFromCart())}
+              >
                 Remove All
               </button>
             </div>
-            <div>
-              {cart &&
-                cart.map((item: CartItem) => (
-                  <div
-                    className='flex items-center justify-between gap-4'
-                    key={item.name}
-                  >
+            <div className='flex flex-col gap-6 '>
+              {cart.map((item: CartItem) => (
+                <div
+                  className='flex items-center justify-between gap-4'
+                  key={item.name}
+                >
+                  <div className='flex items-center gap-4'>
                     <img
                       src={`/assets/product-${item.slug}/mobile/image-category-page-preview.jpg`}
                       alt={item.name}
                       className='w-16 rounded-lg'
                     />
-                    <div className='flex flex-col justify-between'>
+                    <div className='flex flex-col justify-between '>
                       <p className='text-body leading-body font-bold'>
                         {item.name}
                       </p>
@@ -42,18 +71,37 @@ const Modal: ForwardRefRenderFunction<HTMLDialogElement> = (props, ref) => {
                         $ {item.originalPrice}
                       </p>
                     </div>
+                  </div>
+                  <div className='justify-self-end' data-item={item.name}>
                     <Counter
                       count={item.qty}
-                      adjustAmount={function (type: '-' | '+'): void {
-                        throw new Error('Function not implemented.');
-                      }}
+                      adjustAmount={adjustAmount}
+                      cart
                     />
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+            <div className='w-full flex flex-col gap-6'>
+              <div className='flex items-center justify-between'>
+                <p className='text-body leading-body opacity-50'>Total</p>
+                <p className='text-[18px] font-bold'>
+                  $ {new Intl.NumberFormat().format(totalValue)}
+                </p>
+              </div>
+              <Button
+                text='CHECKOUT'
+                type='primary'
+                action={() => {
+                  throw new Error('Function not implemented.');
+                }}
+              />
             </div>
           </>
         ) : (
-          <p>Your cart is empty</p>
+          <p className='text-body leading-body font-bold opacity-50 tracking-sub'>
+            Cart is empty
+          </p>
         )}
       </div>
     </dialog>
