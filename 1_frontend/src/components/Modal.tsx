@@ -7,12 +7,26 @@ import {
   removeAllFromCart,
 } from '@/redux/Cart/cartSlice';
 import { AppDispatch, RootState } from '@/redux/store';
-import React, { forwardRef, ForwardRefRenderFunction } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefRenderFunction,
+  useEffect,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Counter from './Counter';
 import Button from './Button';
 
-const Modal: ForwardRefRenderFunction<HTMLDialogElement> = (props, ref) => {
+interface Props {
+  position: { top: number; left: number; width: number };
+}
+
+const Modal: ForwardRefRenderFunction<HTMLDialogElement, Props> = (
+  { position },
+  ref
+) => {
+  const [calculatedLeft, setCalculatedLeft] = useState<number>(0);
+
   const cart = useSelector((state: RootState) => state.cart.CartItems);
   const totalValue = useSelector((state: RootState) => state.cart.totalValue);
 
@@ -34,12 +48,21 @@ const Modal: ForwardRefRenderFunction<HTMLDialogElement> = (props, ref) => {
       );
     }
   };
+  useEffect(() => {
+    setCalculatedLeft(position.left);
+  }, [position]);
   return (
     <dialog
       ref={ref}
-      className='fixed w-[327px] md:w-[377px] bg-white top-[109px] left-[10%] rounded-lg'
+      style={{
+        top: `${position.top}px`,
+        left: `${calculatedLeft}px`,
+      }}
+      className={`fixed w-[327px] md:w-[350px] 2xl:w-[377px] bg-white rounded-lg ${
+        calculatedLeft ? 'block' : 'hidden'
+      }`}
     >
-      <div className='flex flex-col gap-8 w-full h-full px-7 py-8'>
+      <div className='flex flex-col gap-8 w-full h-full px-5 py-8'>
         {cart && cart.length !== 0 ? (
           <>
             <div className='flex justify-between'>

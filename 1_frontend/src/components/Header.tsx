@@ -45,22 +45,34 @@ const Header: React.FC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [cartButtonPosition, setCartButtonPosition] = useState<{
+    top: number;
+    left: number;
+    width: number;
+  }>({ top: 0, left: 0, width: 0 });
 
   const modalRef = useRef<HTMLDialogElement>(null);
+  const cartButtonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (isModalOpen) {
       modalRef.current?.showModal();
+
+      updateCartModalPosition();
+      window.addEventListener('resize', updateCartModalPosition);
       document.addEventListener('click', handleClickOutside);
     } else if (!isModalOpen) {
+      window.removeEventListener('resize', updateCartModalPosition);
       document.removeEventListener('click', handleClickOutside);
     }
     return () => {
+      window.removeEventListener('resize', updateCartModalPosition);
       document.removeEventListener('click', handleClickOutside);
     };
   }, [isModalOpen]);
 
   const toggleModal = () => {
     if (!isModalOpen) {
+      updateCartModalPosition();
       setIsModalOpen(true);
     } else if (isModalOpen) {
       modalRef.current?.close();
@@ -72,6 +84,17 @@ const Header: React.FC = () => {
 
     if (e.target === modalRef.current) toggleModal();
     else if (e.target !== modalRef.current) return;
+  };
+
+  const updateCartModalPosition = () => {
+    if (cartButtonRef.current) {
+      const rect = cartButtonRef.current.getBoundingClientRect();
+      setCartButtonPosition({
+        top: rect.bottom + window.scrollY + 60,
+        left: rect.left + window.scrollX - 295,
+        width: rect.width,
+      });
+    }
   };
 
   return (
@@ -95,7 +118,12 @@ const Header: React.FC = () => {
           <ul className='hidden 2xl:flex 2xl:gap-8 2xl:mr-28 z-10'>
             <NavLinks />
           </ul>
-          <button className='z-10' aria-label='Show cart' onClick={toggleModal}>
+          <button
+            ref={cartButtonRef}
+            className='z-10'
+            aria-label='Show cart'
+            onClick={toggleModal}
+          >
             <Cart />
           </button>
         </nav>
@@ -107,7 +135,7 @@ const Header: React.FC = () => {
       </StyledHeader>
       {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
 
-      {isModalOpen && <Modal ref={modalRef} />}
+      {isModalOpen && <Modal ref={modalRef} position={cartButtonPosition} />}
     </>
   );
 };
