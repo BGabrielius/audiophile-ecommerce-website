@@ -46,9 +46,11 @@ const Product: React.FC<Props> = ({
     dispatch(addToCart(item));
     setAddedToCartMessage(`Added ${title}(${count}) to your cart.`);
     setCount(1);
-    setTimeout(() => {
-      setAddedToCartMessage('');
-    }, 3000);
+    if (addedToCartMessage) {
+      setTimeout(() => {
+        setAddedToCartMessage('');
+      }, 10000);
+    }
   };
 
   return (
