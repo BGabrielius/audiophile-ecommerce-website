@@ -96,6 +96,10 @@ const Header: React.FC = () => {
       });
     }
   };
+  const handleCheckout = () => {
+    setIsModalOpen(false);
+    router.push('/checkout');
+  };
 
   return (
     <>
@@ -135,7 +139,13 @@ const Header: React.FC = () => {
       </StyledHeader>
       {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
 
-      {isModalOpen && <Modal ref={modalRef} position={cartButtonPosition} />}
+      {isModalOpen && (
+        <Modal
+          ref={modalRef}
+          position={cartButtonPosition}
+          handleCheckout={handleCheckout}
+        />
+      )}
     </>
   );
 };

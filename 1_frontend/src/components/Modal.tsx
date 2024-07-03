@@ -18,11 +18,12 @@ import Counter from './Counter';
 import Button from './Button';
 
 interface Props {
+  handleCheckout: () => void;
   position: { top: number; left: number; width: number };
 }
 
 const Modal: ForwardRefRenderFunction<HTMLDialogElement, Props> = (
-  { position },
+  { position, handleCheckout },
   ref
 ) => {
   const [calculatedLeft, setCalculatedLeft] = useState<number>(0);
@@ -112,13 +113,7 @@ const Modal: ForwardRefRenderFunction<HTMLDialogElement, Props> = (
                   $ {new Intl.NumberFormat().format(totalValue)}
                 </p>
               </div>
-              <Button
-                text='CHECKOUT'
-                type='primary'
-                action={() => {
-                  throw new Error('Function not implemented.');
-                }}
-              />
+              <Button text='CHECKOUT' type='primary' action={handleCheckout} />
             </div>
           </>
         ) : (
