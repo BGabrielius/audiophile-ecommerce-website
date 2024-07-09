@@ -2,7 +2,7 @@ import React from 'react';
 
 const AudioGearSection = () => {
   return (
-    <section className='w-full 2xl:h-[588px] bg-white flex flex-col items-center 2xl:flex-row-reverse 2xl:justify-center gap-8 2xl:gap-[30px]'>
+    <section className='w-full 2xl:h-[588px] bg-white flex flex-col items-center 2xl:flex-row-reverse 2xl:justify-center gap-8 2xl:gap-[30px] mb-[120px] 2sm:mb-[96px] 2xl:mb-[160px]'>
       <div className='2xl:w-2/4'>
         <picture>
           <source
