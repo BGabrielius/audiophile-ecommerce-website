@@ -121,7 +121,7 @@ const ProductContentWrapper: React.FC<{ params: string; category: string }> = ({
     <main className='flex justify-start gap-[120px]' key={params}>
       {product && product.about.route === params ? (
         <>
-          <div className='w-full flex items-start mb-[-96px] 2xl:mb-[-64px] mt-4 md:mt-8 2xl:mt-20 p-6 md:p-10 2xl:p-[165px]'>
+          <div className='w-full flex items-start mb-[-96px] 2xl:mb-[-64px] mt-4 md:mt-8 2xl:mt-20 px-6 md:px-10 2xl:px-[165px]'>
             <button
               className='text-body leading-body opacity-60 self-start hover:text-orange-clay'
               onClick={() => router.back()}
