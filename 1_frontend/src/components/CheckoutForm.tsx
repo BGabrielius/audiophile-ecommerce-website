@@ -110,14 +110,11 @@ const CheckoutForm: React.FC = () => {
       <StyledInputWrapper>
         <StyledCheckoutHeading>PAYMENT DETAILS</StyledCheckoutHeading>
         <div className='flex flex-col md:flex-row'>
-          <label
-            htmlFor='payment method'
-            className='font-bold text-[12px] tracking-[-0.21px]'
-          >
+          <label className='font-bold text-[12px] tracking-[-0.21px]'>
             Payment Method
           </label>
           <div>
-            <StyledInput>
+            {/* <StyledInput>
               <CheckoutInput
                 labelName='Country'
                 placeholderName='United States'
@@ -130,7 +127,7 @@ const CheckoutForm: React.FC = () => {
                 placeholderName='United States'
                 type='checkbox'
               />
-            </StyledInput>
+            </StyledInput> */}
           </div>
         </div>
         <StyledInputContainer>

@@ -21,9 +21,11 @@ const CheckoutInput: React.FC<Props> = ({
         </label>
       )}
       <input
+        id={labelName}
+        name={labelName}
         type={type}
         placeholder={placeholderName}
-        className='border rounded-lg h-14 min-w-full px-6 py-5'
+        className='border rounded-lg h-14 min-w-full px-6 py-5 focus:outline-orange-clay'
       />
     </>
   );
